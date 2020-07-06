@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Transformer notes"
+title:  "Blue score"
 date:   2020-06-29 14:59:05 +0200
 categories: jekyll update
 ---
