@@ -1,0 +1,38 @@
+---
+layout: post
+title:  "Transformer notes"
+date:   2020-06-29 14:59:05 +0200
+categories: jekyll update
+---
+
+Understanding the metrics of which an ML model is evaluated is always important in order to understand how well a model is performing and to compare models with each other. In LM and translations they use a metric, or score, called BLUE.
+
+# BLEU(Bilingual evaluation understudy)
+BLEU is used for evaluating how good a translation between two languages are. Sentences translated by the LM model is compared to translations made by professional human translators.
+
+When translating between languages the placements, the order of words, can be different depending on the translation but still be equally good. Therefore the placement does not matter when calculating the BLUE score. In the text below I use words(unigrams) to describe how BLUE is calculated, but in reality it is n-grams that are being used. I start of by showing you what precision and recall would look like and then modify the precision calculations to end up with the BLUE score.
+
+Our example:
+
+|**Machine translation** | the  | the  | the  | the  | cat  |
+|**Reference translation(Ground truth)** | the | brown   |  cat  | is   | cute   |
+
+If we would only use precision(how many of the words used are relevant) we would end up with a perfect score, 1, since both *the* and *cat* exists in the reference translation.
+We can clearly see that the machine translation is not perfect and the score seems way to high. Recall(how many of the relevant words are we using) could be used/added and computing in the following way:
+
+$\frac{1(the) + 0(brown) + 1(cat) + 0(is) + 0(cute)}{5} = \frac{2}{5}$.
+
+Instead of use some mix between precision and recall, BLEU modifes the precision calculation and also penalizes on short sentences.
+
+To calculate the modified precision clipping is used. The indvidual contribution of a word is then at a maximum $m_{wmax}$ where $m_{wmax}$ is the wordcount of a word in the reference translation. In our example the contribution of *the* is clipped at 2.
+
+$ \frac{2(the) + 1(cat)}{5} = \frac{3}{5} $
+
+The penalization that is added to the BLUE calculation is of the form $ \exp^{(1-r)/c}$. $r$ is the size of the translation corpus and $c$ the size of the translation corpus. If $r\geq c$ does not hold, the penalization becomes 1.
+The value of the expression thus becomes
+$ \exp^{(1-2)/5}$
+in our example. The BLUE score is then a simple multiplication between the penalization and the modified precision score.
+
+Some parts are slightly simplified in this article and for a full version I recommend the paper. 
+
+[BLUE](https://www.aclweb.org/anthology/P02-1040.pdf)
