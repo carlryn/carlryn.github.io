@@ -35,4 +35,4 @@ in our example. The BLEU score is then a simple multiplication between the penal
 
 Some parts are slightly simplified in this article and for a full version I recommend the paper. 
 
-[BLUE](https://www.aclweb.org/anthology/P02-1040.pdf)
+[BLEU](https://www.aclweb.org/anthology/P02-1040.pdf)
