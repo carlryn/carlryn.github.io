@@ -1,16 +1,16 @@
 ---
 layout: post
-title:  "Blue score"
+title:  "BLEU score"
 date:   2020-06-29 14:59:05 +0200
 categories: jekyll update
 ---
 
-Understanding the metrics of which an ML model is evaluated is always important in order to understand how well a model is performing and to compare models with each other. In LM and translations they use a metric, or score, called BLUE.
+Understanding the metrics of which an ML model is evaluated is always important in order to understand how well a model is performing and to compare models with each other. In LM and translations they use a metric, or score, called BLEU.
 
 # BLEU(Bilingual evaluation understudy)
 BLEU is used for evaluating how good a translation between two languages are. Sentences translated by the LM model is compared to translations made by professional human translators.
 
-When translating between languages the placements, the order of words, can be different depending on the translation but still be equally good. Therefore the placement does not matter when calculating the BLUE score. In the text below I use words(unigrams) to describe how BLUE is calculated, but in reality it is n-grams that are being used. I start of by showing you what precision and recall would look like and then modify the precision calculations to end up with the BLUE score.
+When translating between languages the placements, the order of words, can be different depending on the translation but still be equally good. Therefore the placement does not matter when calculating the BLUE score. In the text below I use words(unigrams) to describe how BLEU is calculated, but in reality it is n-grams that are being used. I start of by showing you what precision and recall would look like and then modify the precision calculations to end up with the BLEU score.
 
 Our example:
 
@@ -31,7 +31,7 @@ $ \frac{2(the) + 1(cat)}{5} = \frac{3}{5} $
 The penalization that is added to the BLUE calculation is of the form $ \exp^{(1-r)/c}$. $r$ is the size of the translation corpus and $c$ the size of the translation corpus. If $r\geq c$ does not hold, the penalization becomes 1.
 The value of the expression thus becomes
 $ \exp^{(1-2)/5}$
-in our example. The BLUE score is then a simple multiplication between the penalization and the modified precision score.
+in our example. The BLEU score is then a simple multiplication between the penalization and the modified precision score.
 
 Some parts are slightly simplified in this article and for a full version I recommend the paper. 
 
